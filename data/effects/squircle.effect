@@ -1,0 +1,69 @@
+// Squircle: rectángulo con esquinas de superelipse |x|^n + |y|^n = 1, dibujado con una
+// función de distancia con signo para que las orillas salgan suavizadas a cualquier escala.
+
+uniform float4x4 ViewProj;
+uniform float2 size;         // tamaño de la fuente en px
+uniform float radius;        // radio de las esquinas en px
+uniform float power;         // exponente n de la superelipse (2 = arco de círculo)
+uniform float border;        // grosor del borde en px, hacia adentro
+uniform float4 fill_color;   // lineal, alfa sin premultiplicar
+uniform float4 border_color;
+
+struct VertData {
+	float4 pos : POSITION;
+	float2 uv  : TEXCOORD0;
+};
+
+VertData VSDefault(VertData v_in)
+{
+	VertData v_out;
+	v_out.pos = mul(float4(v_in.pos.xyz, 1.0), ViewProj);
+	v_out.uv  = v_in.uv;
+	return v_out;
+}
+
+// Distancia aproximada en px a la orilla (negativa adentro).
+// Fuera de las esquinas es la de un rectángulo. En la esquina, g = ||q / r||_n vale 1 sobre la
+// curva; dividir (g - 1) entre la longitud del gradiente de g da la distancia euclidiana cerca
+// de la orilla, que es donde importa (suavizado y grosor del borde).
+float shape_dist(float2 p)
+{
+	float r = max(radius, 0.0001);
+	float2 q = abs(p) - (size * 0.5 - r);
+	if (q.x > 0.0 && q.y > 0.0) {
+		float n = power;
+		float2 a = min(q / r, float2(64.0, 64.0));
+		float g = pow(pow(a.x, n) + pow(a.y, n), 1.0 / n);
+		float2 grad = float2(pow(a.x, n - 1.0), pow(a.y, n - 1.0)) * pow(max(g, 0.0001), 1.0 - n);
+		return (g - 1.0) * r / max(length(grad), 0.0001);
+	}
+	return max(q.x, q.y) - r;
+}
+
+float4 PSDraw(VertData v_in) : TARGET
+{
+	float2 p = (v_in.uv - 0.5) * size;
+	float d = shape_dist(p);
+	float fw = max(fwidth(d), 0.0001);   // cuánto cambia d en un pixel de pantalla
+
+	float outer = saturate(0.5 - d / fw);
+	float inner = border > 0.0 ? saturate(0.5 - (d + border) / fw) : outer;
+
+	// Relleno adentro del borde, borde en el anillo; se mezclan premultiplicados
+	float fa = fill_color.a * inner;
+	float ba = border_color.a * (outer - inner);
+	float a = fa + ba;
+	if (a <= 0.0)
+		return float4(0.0, 0.0, 0.0, 0.0);
+	float3 rgb = (fill_color.rgb * fa + border_color.rgb * ba) / a;
+	return float4(rgb, a);
+}
+
+technique Draw
+{
+	pass
+	{
+		vertex_shader = VSDefault(v_in);
+		pixel_shader  = PSDraw(v_in);
+	}
+}
