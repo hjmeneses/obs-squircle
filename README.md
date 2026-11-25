@@ -12,11 +12,17 @@ Fuente para OBS Studio que dibuja un **squircle**: un rectángulo con esquinas d
 
 Sirve como máscara o forma para otros filtros, por ejemplo como fuente de forma de un efecto de vidrio.
 
-**Estado:** versión 0.1.0, compilada para OBS 33 en Windows.
+**Estado:** versión 0.1.0, compilada para OBS 33. Probada en Windows; los paquetes de macOS y Ubuntu salen del mismo código pero no se han probado.
 
-## Instalación (Windows)
+## Descarga e instalación
 
-Copia la carpeta `squircle` (con `bin\64bit` y `data`) a `C:\ProgramData\obs-studio\plugins\` y reinicia OBS. En una escena: **+ → Squircle**.
+Descarga el último [release](https://github.com/hjmeneses/obs-squircle/releases/latest) (compilado para OBS 33):
+
+- **Windows:** con OBS cerrado, descomprime el `.zip` en `C:\ProgramData\obs-studio\plugins`.
+- **Ubuntu:** `sudo apt install ./squircle-<versión>-x86_64-linux-gnu.deb`.
+- **macOS:** instala el `.pkg`.
+
+En una escena: **+ → Squircle**.
 
 ## Compilar
 
@@ -40,7 +46,7 @@ An OBS Studio source that draws a **squircle**: a rectangle with superellipse co
 - **Fill color** and **border color**, both with alpha. A transparent fill leaves just the outline.
 - **Border width** (px), drawn inward.
 
-Install: copy the `squircle` folder (with `bin\64bit` and `data`) to `C:\ProgramData\obs-studio\plugins\` and restart OBS, then **+ → Squircle** in a scene. Build with the commands above.
+**Download:** [latest release](https://github.com/hjmeneses/obs-squircle/releases/latest) (built for OBS 33; tested on Windows, macOS and Ubuntu packages untested). Windows: with OBS closed, extract the zip into `C:\ProgramData\obs-studio\plugins`. Ubuntu: `sudo apt install ./squircle-<version>-x86_64-linux-gnu.deb`. macOS: install the `.pkg`. Then **+ → Squircle** in a scene. Build with the commands above.
 
 ## License
 
