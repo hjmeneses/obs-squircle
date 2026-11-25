@@ -4,6 +4,10 @@
 
 Fuente para OBS Studio que dibuja un **squircle**: un rectángulo con esquinas de superelipse (|x|ⁿ + |y|ⁿ = 1), la forma de los íconos de iOS. Se dibuja en la GPU con una función de distancia, así que las orillas salen suavizadas a cualquier tamaño y escala.
 
+<img src="images/squircle.png" alt="Cuatro squircles: curvatura 5, curvatura 2 (círculo), un rectángulo y uno solo con borde" width="900">
+
+<sub>Curvatura 5 · curvatura 2 (círculo) · rectángulo con redondez 70 % · solo borde. / Curvature 5 · curvature 2 (circle) · rectangle at 70 % roundness · outline only.</sub>
+
 - **Ancho** y **Alto** en pixeles.
 - **Redondez de las esquinas** (0–100 %): radio como porcentaje de la mitad del lado corto. 100 % en un cuadrado da el squircle clásico.
 - **Curvatura de las esquinas** (2–12): 2 = esquinas circulares (rectángulo redondeado normal); 4 a 5 = squircle; valores más altos se acercan a una esquina recta.
