@@ -38,6 +38,13 @@ cmake --build --preset windows-x64
 cmake --install build_x64 --config RelWithDebInfo --prefix release
 ```
 
+## Transparencia y uso de IA
+
+Siguiendo las [directrices de recursos de OBS](https://obsproject.com/forum/resources/) y la [política de IA de OBS Studio](https://github.com/obsproject/obs-studio/blob/master/CONTRIBUTING.md#aimachine-learning-policy):
+
+- **Asistencia de IA:** Este plugin se desarrolló con apoyo de asistentes de programación de IA para la implementación en C, el shader GPU de función de distancia, el CI multiplataforma y la documentación, bajo dirección, revisión y pruebas del autor.
+- **Verificación y pruebas:** Compilado en CI para Windows, macOS y Ubuntu, y probado en vivo en OBS Studio 33 en Windows (los paquetes de macOS y Ubuntu salen del mismo código sin pruebas en hardware).
+
 ---
 
 ## English
@@ -51,6 +58,13 @@ An OBS Studio source that draws a **squircle**: a rectangle with superellipse co
 - **Border width** (px), drawn inward.
 
 **Download:** [latest release](https://github.com/hjmeneses/obs-squircle/releases/latest) (built for OBS 33; tested on Windows, macOS and Ubuntu packages untested). Windows: with OBS closed, extract the zip into `C:\ProgramData\obs-studio\plugins`. Ubuntu: `sudo apt install ./squircle-<version>-x86_64-linux-gnu.deb`. macOS: install the `.pkg`. Then **+ → Squircle** in a scene. Build with the commands above.
+
+### Development Transparency & AI Disclosure
+
+In compliance with the [OBS Project Resource Guidelines](https://obsproject.com/forum/resources/) and the [OBS AI/Machine Learning Policy](https://github.com/obsproject/obs-studio/blob/master/CONTRIBUTING.md#aimachine-learning-policy):
+
+- **AI Assistance:** This plugin was developed with the assistance of AI coding tools for C implementation, the GPU signed-distance shader, cross-platform CI, and documentation, under the author's direction, review, and testing.
+- **Verification & Testing:** Built in CI for Windows, macOS, and Ubuntu, and tested live in OBS Studio 33 on Windows (macOS and Ubuntu packages are built from the same code and untested on hardware).
 
 ## License
 
